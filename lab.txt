@@ -1,0 +1,432 @@
+Lab: Análise de Vulnerabilidades em Containers com Trivy
+Pré-requisitos
+
+Docker instalado
+Trivy instalado
+
+Instalação do Trivy
+Ubuntu/Debian
+bashsudo apt-get update
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
+macOS
+bashbrew install trivy
+Windows
+bash# Via Chocolatey
+choco install trivy
+
+# Via Scoop
+scoop install trivy
+Lab 1: Container com Vulnerabilidades Intencionais
+1.1 Criando uma aplicação Python vulnerável
+Crie o arquivo app.py:
+pythonfrom flask import Flask, request, render_template_string
+import pickle
+import base64
+import os
+
+app = Flask(__name__)
+
+# Vulnerabilidade: Template Injection
+TEMPLATE = '''
+<h1>Hello {{name}}!</h1>
+<p>Your input: {{user_input|safe}}</p>
+'''
+
+@app.route('/')
+def home():
+    return '<h1>Vulnerable App</h1><a href="/greet?name=World">Greet</a>'
+
+@app.route('/greet')
+def greet():
+    name = request.args.get('name', 'Anonymous')
+    user_input = request.args.get('input', '')
+    
+    # Vulnerabilidade: Server-Side Template Injection
+    return render_template_string(TEMPLATE, name=name, user_input=user_input)
+
+@app.route('/deserialize')
+def deserialize():
+    data = request.args.get('data')
+    if data:
+        # Vulnerabilidade: Insecure Deserialization
+        try:
+            decoded = base64.b64decode(data)
+            obj = pickle.loads(decoded)
+            return f"Deserialized: {obj}"
+        except:
+            return "Error deserializing"
+    return "Provide data parameter"
+
+@app.route('/cmd')
+def cmd():
+    command = request.args.get('cmd')
+    if command:
+        # Vulnerabilidade: Command Injection
+        result = os.system(command)
+        return f"Command executed: {command}"
+    return "Provide cmd parameter"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
+1.2 Dockerfile vulnerável
+Crie o Dockerfile:
+dockerfile# Usando uma imagem base antiga com vulnerabilidades conhecidas
+FROM python:3.8-slim
+
+# Vulnerabilidade: Executando como root
+USER root
+
+# Vulnerabilidade: Não especificando versões exatas
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiando arquivos
+COPY app.py /app/
+COPY requirements.txt /app/
+
+WORKDIR /app
+
+# Vulnerabilidade: pip install sem especificar versões
+RUN pip install -r requirements.txt
+
+# Vulnerabilidade: Expondo informações sensíveis
+ENV SECRET_KEY=super_secret_key_123
+ENV DB_PASSWORD=admin123
+
+# Vulnerabilidade: Porta exposta desnecessariamente
+EXPOSE 5000 22 3306
+
+# Vulnerabilidade: Executando como root
+CMD ["python", "app.py"]
+1.3 Requirements.txt com dependências vulneráveis
+Crie o requirements.txt:
+Flask==1.0.2
+Jinja2==2.10
+requests==2.20.0
+urllib3==1.24.1
+Pillow==6.0.0
+1.4 Construindo o container
+bash# Construir a imagem
+docker build -t vulnerable-app:1.0 .
+
+# Verificar se a imagem foi criada
+docker images | grep vulnerable-app
+Lab 2: Análise com Trivy
+2.1 Scan básico da imagem
+bash# Scan básico
+trivy image vulnerable-app:1.0
+
+# Scan apenas vulnerabilidades HIGH e CRITICAL
+trivy image --severity HIGH,CRITICAL vulnerable-app:1.0
+
+# Scan com saída em formato JSON
+trivy image --format json --output results.json vulnerable-app:1.0
+
+# Scan com saída em formato de tabela
+trivy image --format table vulnerable-app:1.0
+2.2 Scan específico por tipo
+bash# Apenas vulnerabilidades do OS
+trivy image --vuln-type os vulnerable-app:1.0
+
+# Apenas vulnerabilidades de bibliotecas
+trivy image --vuln-type library vulnerable-app:1.0
+
+# Scan de configuração (misconfigurations)
+trivy config Dockerfile
+
+# Scan de secrets
+trivy fs --security-checks secret .
+2.3 Análise detalhada
+bash# Relatório detalhado em HTML
+trivy image --format template --template "@contrib/html.tpl" -o report.html vulnerable-app:1.0
+
+# Scan ignorando vulnerabilidades não corrigidas
+trivy image --ignore-unfixed vulnerable-app:1.0
+
+# Scan com timeout customizado
+trivy image --timeout 10m vulnerable-app:1.0
+Lab 3: Container Mais Seguro
+3.1 Dockerfile melhorado
+Crie o Dockerfile.secure:
+dockerfile# Usando imagem mais recente e específica
+FROM python:3.11-slim-bullseye AS builder
+
+# Instalando dependências de build
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiando apenas o necessário
+COPY requirements.txt .
+
+# Instalando dependências Python
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+# Estágio final
+FROM python:3.11-slim-bullseye
+
+# Criando usuário não-root
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+
+# Copiando dependências do estágio anterior
+COPY --from=builder /root/.local /home/appuser/.local
+
+# Copiando aplicação
+COPY app_secure.py /app/app.py
+
+# Definindo diretório de trabalho
+WORKDIR /app
+
+# Mudando para usuário não-root
+USER appuser
+
+# Expondo apenas a porta necessária
+EXPOSE 5000
+
+# Comando para executar a aplicação
+CMD ["/home/appuser/.local/bin/python", "app.py"]
+3.2 Aplicação mais segura
+Crie o app_secure.py:
+pythonfrom flask import Flask, request, jsonify, escape
+import logging
+import os
+
+app = Flask(__name__)
+
+# Configuração segura
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'change-me-in-production')
+
+# Configurando logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Secure App", "status": "healthy"})
+
+@app.route('/greet')
+def greet():
+    name = request.args.get('name', 'Anonymous')
+    # Sanitizando entrada
+    safe_name = escape(name)
+    
+    logger.info(f"Greeting request for: {safe_name}")
+    
+    return jsonify({
+        "greeting": f"Hello {safe_name}!",
+        "timestamp": "2024-01-01T00:00:00Z"
+    })
+
+@app.route('/health')
+def health():
+    return jsonify({"status": "ok"})
+
+if __name__ == '__main__':
+    # Configuração segura para produção
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(host='0.0.0.0', port=5000, debug=debug_mode)
+3.3 Requirements.txt atualizado
+Crie o requirements.txt.secure:
+Flask==2.3.3
+Werkzeug==2.3.7
+Jinja2==3.1.2
+MarkupSafe==2.1.3
+itsdangerous==2.1.2
+click==8.1.7
+3.4 Construindo e testando o container seguro
+bash# Construir versão segura
+docker build -f Dockerfile.secure -t secure-app:1.0 .
+
+# Comparar os scans
+echo "=== VULNERABLE APP ==="
+trivy image --severity HIGH,CRITICAL vulnerable-app:1.0
+
+echo "=== SECURE APP ==="
+trivy image --severity HIGH,CRITICAL secure-app:1.0
+Lab 4: Automação e CI/CD
+4.1 Script de análise automatizada
+Crie o security_scan.sh:
+bash#!/bin/bash
+
+IMAGE_NAME=$1
+THRESHOLD=${2:-HIGH}
+
+if [ -z "$IMAGE_NAME" ]; then
+    echo "Usage: $0 <image_name> [severity_threshold]"
+    exit 1
+fi
+
+echo "Scanning $IMAGE_NAME..."
+
+# Executar scan
+trivy image --severity $THRESHOLD --format json --output scan_results.json $IMAGE_NAME
+
+# Verificar se há vulnerabilidades críticas
+CRITICAL_COUNT=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL")] | length' scan_results.json)
+HIGH_COUNT=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "HIGH")] | length' scan_results.json)
+
+echo "Found $CRITICAL_COUNT CRITICAL and $HIGH_COUNT HIGH vulnerabilities"
+
+# Gerar relatório HTML
+trivy image --format template --template "@contrib/html.tpl" -o security_report.html $IMAGE_NAME
+
+if [ "$CRITICAL_COUNT" -gt 0 ]; then
+    echo "❌ Build FAILED: Critical vulnerabilities found!"
+    exit 1
+elif [ "$HIGH_COUNT" -gt 5 ]; then
+    echo "⚠️  Build WARNING: Too many high vulnerabilities!"
+    exit 1
+else
+    echo "✅ Build PASSED: Security scan successful!"
+    exit 0
+fi
+4.2 GitHub Actions workflow
+Crie o .github/workflows/security.yml:
+yamlname: Container Security Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Docker image
+      run: docker build -t ${{ github.repository }}:${{ github.sha }} .
+    
+    - name: Install Trivy
+      run: |
+        sudo apt-get update
+        sudo apt-get install wget apt-transport-https gnupg lsb-release
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+        echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+        sudo apt-get update
+        sudo apt-get install trivy
+    
+    - name: Run Trivy vulnerability scanner
+      run: |
+        trivy image --format sarif --output trivy-results.sarif ${{ github.repository }}:${{ github.sha }}
+    
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+    
+    - name: Generate HTML report
+      run: |
+        trivy image --format template --template "@contrib/html.tpl" -o trivy-report.html ${{ github.repository }}:${{ github.sha }}
+    
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v3
+      with:
+        name: trivy-report
+        path: trivy-report.html
+Lab 5: Configuração Avançada
+5.1 Arquivo de configuração Trivy
+Crie o trivy.yaml:
+yaml# Configuração global do Trivy
+format: table
+output: trivy-report.txt
+severity: HIGH,CRITICAL
+ignore-unfixed: true
+timeout: 5m
+
+# Configurações de cache
+cache:
+  clear: false
+  
+# Configurações de banco de dados
+db:
+  no-progress: false
+  
+# Vulnerabilidades a ignorar
+ignore:
+  - CVE-2021-44228  # Log4j (se não aplicável)
+  
+# Configurações específicas por tipo de scan
+image:
+  format: json
+  output: image-scan.json
+  
+config:
+  format: table
+  
+secret:
+  format: table
+5.2 Arquivo .trivyignore
+Crie o .trivyignore:
+# Ignorar vulnerabilidades específicas que são false positives
+# ou que não se aplicam ao seu contexto
+
+# CVE específicos
+CVE-2021-44228
+
+# Por package
+pkg:python/urllib3@1.24.1
+
+# Por severity (cuidado ao usar)
+# LOW
+# MEDIUM
+Lab 6: Exercícios Práticos
+Exercício 1: Análise Comparativa
+
+Execute scan em diferentes versões de imagens base (python:3.8 vs python:3.11)
+Compare os resultados
+Documente as diferenças encontradas
+
+Exercício 2: Integração com Docker Compose
+
+Crie um docker-compose.yml com múltiplos serviços
+Execute scan em todas as imagens
+Gere relatório consolidado
+
+Exercício 3: Scan de Registry
+bash# Scan de imagem remota
+trivy image nginx:latest
+
+# Scan de registry privado
+trivy image --username <user> --password <pass> private-registry.com/image:tag
+Comandos Úteis de Referência
+bash# Scans básicos
+trivy image <image_name>
+trivy fs <directory>
+trivy config <config_file>
+
+# Filtros
+trivy image --severity HIGH,CRITICAL <image>
+trivy image --ignore-unfixed <image>
+trivy image --vuln-type os,library <image>
+
+# Outputs
+trivy image --format json <image>
+trivy image --format sarif <image>
+trivy image --format template --template "@contrib/html.tpl" <image>
+
+# Cache
+trivy image --cache-dir /tmp/trivy <image>
+trivy --cache-clear
+
+# Configuração
+trivy --config trivy.yaml image <image>
+Conclusão
+Este laboratório fornece uma base sólida para:
+
+Entender vulnerabilidades em containers
+Usar o Trivy efetivamente
+Implementar segurança em pipelines CI/CD
+Criar containers mais seguros
+
+Pratique com diferentes imagens e configurações para aprofundar seu conhecimento em segurança de containers!
