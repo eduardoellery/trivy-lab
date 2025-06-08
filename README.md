@@ -41,3 +41,9 @@ Trivy LAB.
 
 ## Scan com timeout customizado
 `trivy image --timeout 10m vulnerable-app:1.0`
+
+---
+
+## Run container
+`docker run -d -p 5000:5000 --name vulnerable-app vulnerable-app:1.0`
+

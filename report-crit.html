@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      * {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      h1 {
+        text-align: center;
+      }
+      .group-header th {
+        font-size: 200%;
+      }
+      .sub-header th {
+        font-size: 150%;
+      }
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        white-space: nowrap;
+        padding: .3em;
+      }
+      table {
+        margin: 0 auto;
+      }
+      .severity {
+        text-align: center;
+        font-weight: bold;
+        color: #fafafa;
+      }
+      .severity-LOW .severity { background-color: #5fbb31; }
+      .severity-MEDIUM .severity { background-color: #e9c600; }
+      .severity-HIGH .severity { background-color: #ff8800; }
+      .severity-CRITICAL .severity { background-color: #e40000; }
+      .severity-UNKNOWN .severity { background-color: #747474; }
+      .severity-LOW { background-color: #5fbb3160; }
+      .severity-MEDIUM { background-color: #e9c60060; }
+      .severity-HIGH { background-color: #ff880060; }
+      .severity-CRITICAL { background-color: #e4000060; }
+      .severity-UNKNOWN { background-color: #74747460; }
+      table tr td:first-of-type {
+        font-weight: bold;
+      }
+      .links a,
+      .links[data-more-links=on] a {
+        display: block;
+      }
+      .links[data-more-links=off] a:nth-of-type(1n+5) {
+        display: none;
+      }
+      a.toggle-more-links { cursor: pointer; }
+    </style>
+    <title>vulnerable-app:1.0 (debian 12.7) - Trivy Report - 2025-06-08 13:32:01.401861096 -0400 EDT m=+0.220626614 </title>
+    <script>
+      window.onload = function() {
+        document.querySelectorAll('td.links').forEach(function(linkCell) {
+          var links = [].concat.apply([], linkCell.querySelectorAll('a'));
+          [].sort.apply(links, function(a, b) {
+            return a.href > b.href ? 1 : -1;
+          });
+          links.forEach(function(link, idx) {
+            if (links.length > 3 && 3 === idx) {
+              var toggleLink = document.createElement('a');
+              toggleLink.innerText = "Toggle more links";
+              toggleLink.href = "#toggleMore";
+              toggleLink.setAttribute("class", "toggle-more-links");
+              linkCell.appendChild(toggleLink);
+            }
+            linkCell.appendChild(link);
+          });
+        });
+        document.querySelectorAll('a.toggle-more-links').forEach(function(toggleLink) {
+          toggleLink.onclick = function() {
+            var expanded = toggleLink.parentElement.getAttribute("data-more-links");
+            toggleLink.parentElement.setAttribute("data-more-links", "on" === expanded ? "off" : "on");
+            return false;
+          };
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <h1>vulnerable-app:1.0 (debian 12.7) - Trivy Report - 2025-06-08 13:32:01.401875428 -0400 EDT m=+0.220640945</h1>
+    <table>
+      <tr class="group-header"><th colspan="6">debian</th></tr>
+      <tr class="sub-header">
+        <th>Package</th>
+        <th>Vulnerability ID</th>
+        <th>Severity</th>
+        <th>Installed Version</th>
+        <th>Fixed Version</th>
+        <th>Links</th>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">libaom3</td>
+        <td>CVE-2023-6879</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">3.6.0-1+deb12u1</td>
+        <td></td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/security/cve/CVE-2023-6879">https://access.redhat.com/security/cve/CVE-2023-6879</a>
+          <a href="https://aomedia.googlesource.com/aom/+/refs/tags/v3.7.1">https://aomedia.googlesource.com/aom/+/refs/tags/v3.7.1</a>
+          <a href="https://crbug.com/aomedia/3491">https://crbug.com/aomedia/3491</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AYONA2XSNFMXLAW4IHLFI5UVV3QRNG5K/">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AYONA2XSNFMXLAW4IHLFI5UVV3QRNG5K/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/D6C2HN4T2S6GYNTAUXLH45LQZHK7QPHP/">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/D6C2HN4T2S6GYNTAUXLH45LQZHK7QPHP/</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-6879">https://nvd.nist.gov/vuln/detail/CVE-2023-6879</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2023-6879">https://www.cve.org/CVERecord?id=CVE-2023-6879</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">zlib1g</td>
+        <td>CVE-2023-45853</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">1:1.2.13.dfsg-1</td>
+        <td></td>
+        <td class="links" data-more-links="off">
+          <a href="http://www.openwall.com/lists/oss-security/2023/10/20/9">http://www.openwall.com/lists/oss-security/2023/10/20/9</a>
+          <a href="http://www.openwall.com/lists/oss-security/2024/01/24/10">http://www.openwall.com/lists/oss-security/2024/01/24/10</a>
+          <a href="https://access.redhat.com/security/cve/CVE-2023-45853">https://access.redhat.com/security/cve/CVE-2023-45853</a>
+          <a href="https://chromium.googlesource.com/chromium/src/+/d709fb23806858847131027da95ef4c548813356">https://chromium.googlesource.com/chromium/src/+/d709fb23806858847131027da95ef4c548813356</a>
+          <a href="https://chromium.googlesource.com/chromium/src/+/de29dd6c7151d3cd37cb4cf0036800ddfb1d8b61">https://chromium.googlesource.com/chromium/src/+/de29dd6c7151d3cd37cb4cf0036800ddfb1d8b61</a>
+          <a href="https://github.com/madler/zlib/blob/ac8f12c97d1afd9bafa9c710f827d40a407d3266/contrib/README.contrib#L1-L4">https://github.com/madler/zlib/blob/ac8f12c97d1afd9bafa9c710f827d40a407d3266/contrib/README.contrib#L1-L4</a>
+          <a href="https://github.com/madler/zlib/commit/73331a6a0481067628f065ffe87bb1d8f787d10c">https://github.com/madler/zlib/commit/73331a6a0481067628f065ffe87bb1d8f787d10c</a>
+          <a href="https://github.com/madler/zlib/pull/843">https://github.com/madler/zlib/pull/843</a>
+          <a href="https://github.com/smihica/pyminizip">https://github.com/smihica/pyminizip</a>
+          <a href="https://github.com/smihica/pyminizip/blob/master/zlib-1.2.11/contrib/minizip/zip.c">https://github.com/smihica/pyminizip/blob/master/zlib-1.2.11/contrib/minizip/zip.c</a>
+          <a href="https://lists.debian.org/debian-lts-announce/2023/11/msg00026.html">https://lists.debian.org/debian-lts-announce/2023/11/msg00026.html</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-45853">https://nvd.nist.gov/vuln/detail/CVE-2023-45853</a>
+          <a href="https://pypi.org/project/pyminizip/#history">https://pypi.org/project/pyminizip/#history</a>
+          <a href="https://security.gentoo.org/glsa/202401-18">https://security.gentoo.org/glsa/202401-18</a>
+          <a href="https://security.netapp.com/advisory/ntap-20231130-0009">https://security.netapp.com/advisory/ntap-20231130-0009</a>
+          <a href="https://security.netapp.com/advisory/ntap-20231130-0009/">https://security.netapp.com/advisory/ntap-20231130-0009/</a>
+          <a href="https://ubuntu.com/security/notices/USN-7107-1">https://ubuntu.com/security/notices/USN-7107-1</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2023-45853">https://www.cve.org/CVERecord?id=CVE-2023-45853</a>
+          <a href="https://www.winimage.com/zLibDll/minizip.html">https://www.winimage.com/zLibDll/minizip.html</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">zlib1g-dev</td>
+        <td>CVE-2023-45853</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">1:1.2.13.dfsg-1</td>
+        <td></td>
+        <td class="links" data-more-links="off">
+          <a href="http://www.openwall.com/lists/oss-security/2023/10/20/9">http://www.openwall.com/lists/oss-security/2023/10/20/9</a>
+          <a href="http://www.openwall.com/lists/oss-security/2024/01/24/10">http://www.openwall.com/lists/oss-security/2024/01/24/10</a>
+          <a href="https://access.redhat.com/security/cve/CVE-2023-45853">https://access.redhat.com/security/cve/CVE-2023-45853</a>
+          <a href="https://chromium.googlesource.com/chromium/src/+/d709fb23806858847131027da95ef4c548813356">https://chromium.googlesource.com/chromium/src/+/d709fb23806858847131027da95ef4c548813356</a>
+          <a href="https://chromium.googlesource.com/chromium/src/+/de29dd6c7151d3cd37cb4cf0036800ddfb1d8b61">https://chromium.googlesource.com/chromium/src/+/de29dd6c7151d3cd37cb4cf0036800ddfb1d8b61</a>
+          <a href="https://github.com/madler/zlib/blob/ac8f12c97d1afd9bafa9c710f827d40a407d3266/contrib/README.contrib#L1-L4">https://github.com/madler/zlib/blob/ac8f12c97d1afd9bafa9c710f827d40a407d3266/contrib/README.contrib#L1-L4</a>
+          <a href="https://github.com/madler/zlib/commit/73331a6a0481067628f065ffe87bb1d8f787d10c">https://github.com/madler/zlib/commit/73331a6a0481067628f065ffe87bb1d8f787d10c</a>
+          <a href="https://github.com/madler/zlib/pull/843">https://github.com/madler/zlib/pull/843</a>
+          <a href="https://github.com/smihica/pyminizip">https://github.com/smihica/pyminizip</a>
+          <a href="https://github.com/smihica/pyminizip/blob/master/zlib-1.2.11/contrib/minizip/zip.c">https://github.com/smihica/pyminizip/blob/master/zlib-1.2.11/contrib/minizip/zip.c</a>
+          <a href="https://lists.debian.org/debian-lts-announce/2023/11/msg00026.html">https://lists.debian.org/debian-lts-announce/2023/11/msg00026.html</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-45853">https://nvd.nist.gov/vuln/detail/CVE-2023-45853</a>
+          <a href="https://pypi.org/project/pyminizip/#history">https://pypi.org/project/pyminizip/#history</a>
+          <a href="https://security.gentoo.org/glsa/202401-18">https://security.gentoo.org/glsa/202401-18</a>
+          <a href="https://security.netapp.com/advisory/ntap-20231130-0009">https://security.netapp.com/advisory/ntap-20231130-0009</a>
+          <a href="https://security.netapp.com/advisory/ntap-20231130-0009/">https://security.netapp.com/advisory/ntap-20231130-0009/</a>
+          <a href="https://ubuntu.com/security/notices/USN-7107-1">https://ubuntu.com/security/notices/USN-7107-1</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2023-45853">https://www.cve.org/CVERecord?id=CVE-2023-45853</a>
+          <a href="https://www.winimage.com/zLibDll/minizip.html">https://www.winimage.com/zLibDll/minizip.html</a>
+        </td>
+      </tr>
+      <tr><th colspan="6">No Misconfigurations found</th></tr>
+      <tr class="group-header"><th colspan="6">python-pkg</th></tr>
+      <tr class="sub-header">
+        <th>Package</th>
+        <th>Vulnerability ID</th>
+        <th>Severity</th>
+        <th>Installed Version</th>
+        <th>Fixed Version</th>
+        <th>Links</th>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2020-11538</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>7.1.0</td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/security/cve/CVE-2020-11538">https://access.redhat.com/security/cve/CVE-2020-11538</a>
+          <a href="https://github.com/advisories/GHSA-43fq-w8qq-v88h">https://github.com/advisories/GHSA-43fq-w8qq-v88h</a>
+          <a href="https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-80.yaml">https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-80.yaml</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/blob/master/docs/releasenotes/7.1.0.rst#security">https://github.com/python-pillow/Pillow/blob/master/docs/releasenotes/7.1.0.rst#security</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/2ef59fdbaeb756bc512ab3f2ad15ac45665b303d">https://github.com/python-pillow/Pillow/commit/2ef59fdbaeb756bc512ab3f2ad15ac45665b303d</a>
+          <a href="https://github.com/python-pillow/Pillow/pull/4504">https://github.com/python-pillow/Pillow/pull/4504</a>
+          <a href="https://github.com/python-pillow/Pillow/pull/4538">https://github.com/python-pillow/Pillow/pull/4538</a>
+          <a href="https://linux.oracle.com/cve/CVE-2020-11538.html">https://linux.oracle.com/cve/CVE-2020-11538.html</a>
+          <a href="https://linux.oracle.com/errata/ELSA-2020-3185.html">https://linux.oracle.com/errata/ELSA-2020-3185.html</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BEBCPE4F2VHTIT6EZA2YZQZLPVDEBJGD/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BEBCPE4F2VHTIT6EZA2YZQZLPVDEBJGD/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HOKHNWV2VS5GESY7IBD237E7C6T3I427/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HOKHNWV2VS5GESY7IBD237E7C6T3I427/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/BEBCPE4F2VHTIT6EZA2YZQZLPVDEBJGD">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/BEBCPE4F2VHTIT6EZA2YZQZLPVDEBJGD</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HOKHNWV2VS5GESY7IBD237E7C6T3I427">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HOKHNWV2VS5GESY7IBD237E7C6T3I427</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-11538">https://nvd.nist.gov/vuln/detail/CVE-2020-11538</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/7.1.0.html">https://pillow.readthedocs.io/en/stable/releasenotes/7.1.0.html</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/index.html">https://pillow.readthedocs.io/en/stable/releasenotes/index.html</a>
+          <a href="https://snyk.io/vuln/SNYK-PYTHON-PILLOW-574574">https://snyk.io/vuln/SNYK-PYTHON-PILLOW-574574</a>
+          <a href="https://ubuntu.com/security/notices/USN-4430-1">https://ubuntu.com/security/notices/USN-4430-1</a>
+          <a href="https://ubuntu.com/security/notices/USN-4430-2">https://ubuntu.com/security/notices/USN-4430-2</a>
+          <a href="https://usn.ubuntu.com/4430-1">https://usn.ubuntu.com/4430-1</a>
+          <a href="https://usn.ubuntu.com/4430-1/">https://usn.ubuntu.com/4430-1/</a>
+          <a href="https://usn.ubuntu.com/4430-2">https://usn.ubuntu.com/4430-2</a>
+          <a href="https://usn.ubuntu.com/4430-2/">https://usn.ubuntu.com/4430-2/</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2020-11538">https://www.cve.org/CVERecord?id=CVE-2020-11538</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2020-5310</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>6.2.2</td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/security/cve/CVE-2020-5310">https://access.redhat.com/security/cve/CVE-2020-5310</a>
+          <a href="https://github.com/advisories/GHSA-vcqg-3p29-xw73">https://github.com/advisories/GHSA-vcqg-3p29-xw73</a>
+          <a href="https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-81.yaml">https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-81.yaml</a>
+          <a href="https://github.com/pypa/advisory-db/blob/7872b0a91b4d980f749e6d75a81f8cc1af32829f/vulns/pillow/PYSEC-2020-81.yaml">https://github.com/pypa/advisory-db/blob/7872b0a91b4d980f749e6d75a81f8cc1af32829f/vulns/pillow/PYSEC-2020-81.yaml</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/4e2def2539ec13e53a82e06c4b3daf00454100c4">https://github.com/python-pillow/Pillow/commit/4e2def2539ec13e53a82e06c4b3daf00454100c4</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-5310">https://nvd.nist.gov/vuln/detail/CVE-2020-5310</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/6.2.2.html">https://pillow.readthedocs.io/en/stable/releasenotes/6.2.2.html</a>
+          <a href="https://ubuntu.com/security/notices/USN-4272-1">https://ubuntu.com/security/notices/USN-4272-1</a>
+          <a href="https://usn.ubuntu.com/4272-1">https://usn.ubuntu.com/4272-1</a>
+          <a href="https://usn.ubuntu.com/4272-1/">https://usn.ubuntu.com/4272-1/</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2020-5310">https://www.cve.org/CVERecord?id=CVE-2020-5310</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2020-5311</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>6.2.2</td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/errata/RHSA-2020:0566">https://access.redhat.com/errata/RHSA-2020:0566</a>
+          <a href="https://access.redhat.com/errata/RHSA-2020:0580">https://access.redhat.com/errata/RHSA-2020:0580</a>
+          <a href="https://access.redhat.com/security/cve/CVE-2020-5311">https://access.redhat.com/security/cve/CVE-2020-5311</a>
+          <a href="https://github.com/advisories/GHSA-r7rm-8j6h-r933">https://github.com/advisories/GHSA-r7rm-8j6h-r933</a>
+          <a href="https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-82.yaml">https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-82.yaml</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/a79b65c47c7dc6fe623aadf09aa6192fc54548f3">https://github.com/python-pillow/Pillow/commit/a79b65c47c7dc6fe623aadf09aa6192fc54548f3</a>
+          <a href="https://linux.oracle.com/cve/CVE-2020-5311.html">https://linux.oracle.com/cve/CVE-2020-5311.html</a>
+          <a href="https://linux.oracle.com/errata/ELSA-2020-0580.html">https://linux.oracle.com/errata/ELSA-2020-0580.html</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-5311">https://nvd.nist.gov/vuln/detail/CVE-2020-5311</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/6.2.2.html">https://pillow.readthedocs.io/en/stable/releasenotes/6.2.2.html</a>
+          <a href="https://ubuntu.com/security/notices/USN-4272-1">https://ubuntu.com/security/notices/USN-4272-1</a>
+          <a href="https://usn.ubuntu.com/4272-1">https://usn.ubuntu.com/4272-1</a>
+          <a href="https://usn.ubuntu.com/4272-1/">https://usn.ubuntu.com/4272-1/</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2020-5311">https://www.cve.org/CVERecord?id=CVE-2020-5311</a>
+          <a href="https://www.debian.org/security/2020/dsa-4631">https://www.debian.org/security/2020/dsa-4631</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2020-5312</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>6.2.2</td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/errata/RHSA-2020:0566">https://access.redhat.com/errata/RHSA-2020:0566</a>
+          <a href="https://access.redhat.com/errata/RHSA-2020:0578">https://access.redhat.com/errata/RHSA-2020:0578</a>
+          <a href="https://access.redhat.com/errata/RHSA-2020:0580">https://access.redhat.com/errata/RHSA-2020:0580</a>
+          <a href="https://access.redhat.com/errata/RHSA-2020:0681">https://access.redhat.com/errata/RHSA-2020:0681</a>
+          <a href="https://access.redhat.com/errata/RHSA-2020:0683">https://access.redhat.com/errata/RHSA-2020:0683</a>
+          <a href="https://access.redhat.com/errata/RHSA-2020:0694">https://access.redhat.com/errata/RHSA-2020:0694</a>
+          <a href="https://access.redhat.com/security/cve/CVE-2020-5312">https://access.redhat.com/security/cve/CVE-2020-5312</a>
+          <a href="https://github.com/advisories/GHSA-p49h-hjvm-jg3h">https://github.com/advisories/GHSA-p49h-hjvm-jg3h</a>
+          <a href="https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-83.yaml">https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-83.yaml</a>
+          <a href="https://github.com/pypa/advisory-db/blob/7872b0a91b4d980f749e6d75a81f8cc1af32829f/vulns/pillow/PYSEC-2020-83.yaml">https://github.com/pypa/advisory-db/blob/7872b0a91b4d980f749e6d75a81f8cc1af32829f/vulns/pillow/PYSEC-2020-83.yaml</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/93b22b846e0269ee9594ff71a72bec02d2bea8fd">https://github.com/python-pillow/Pillow/commit/93b22b846e0269ee9594ff71a72bec02d2bea8fd</a>
+          <a href="https://linux.oracle.com/cve/CVE-2020-5312.html">https://linux.oracle.com/cve/CVE-2020-5312.html</a>
+          <a href="https://linux.oracle.com/errata/ELSA-2020-0898.html">https://linux.oracle.com/errata/ELSA-2020-0898.html</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/2MMU3WT2X64GS5WHDPKKC2WZA7UIIQ3A</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-5312">https://nvd.nist.gov/vuln/detail/CVE-2020-5312</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/6.2.2.html">https://pillow.readthedocs.io/en/stable/releasenotes/6.2.2.html</a>
+          <a href="https://ubuntu.com/security/notices/USN-4272-1">https://ubuntu.com/security/notices/USN-4272-1</a>
+          <a href="https://usn.ubuntu.com/4272-1">https://usn.ubuntu.com/4272-1</a>
+          <a href="https://usn.ubuntu.com/4272-1/">https://usn.ubuntu.com/4272-1/</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2020-5312">https://www.cve.org/CVERecord?id=CVE-2020-5312</a>
+          <a href="https://www.debian.org/security/2020/dsa-4631">https://www.debian.org/security/2020/dsa-4631</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2021-25289</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>8.1.1</td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/security/cve/CVE-2021-25289">https://access.redhat.com/security/cve/CVE-2021-25289</a>
+          <a href="https://github.com/advisories/GHSA-57h3-9rgr-c24m">https://github.com/advisories/GHSA-57h3-9rgr-c24m</a>
+          <a href="https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2021-35.yaml">https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2021-35.yaml</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/3fee28eb9479bf7d59e0fa08068f9cc4a6e2f04c">https://github.com/python-pillow/Pillow/commit/3fee28eb9479bf7d59e0fa08068f9cc4a6e2f04c</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/cbfdde7b1f2295059a20a539ee9960f0bec7b299">https://github.com/python-pillow/Pillow/commit/cbfdde7b1f2295059a20a539ee9960f0bec7b299</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-25289">https://nvd.nist.gov/vuln/detail/CVE-2021-25289</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/8.1.1.html">https://pillow.readthedocs.io/en/stable/releasenotes/8.1.1.html</a>
+          <a href="https://security.gentoo.org/glsa/202107-33">https://security.gentoo.org/glsa/202107-33</a>
+          <a href="https://ubuntu.com/security/notices/USN-4763-1">https://ubuntu.com/security/notices/USN-4763-1</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2021-25289">https://www.cve.org/CVERecord?id=CVE-2021-25289</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2021-34552</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>8.3.0</td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2021-34552.json">https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2021-34552.json</a>
+          <a href="https://access.redhat.com/security/cve/CVE-2021-34552">https://access.redhat.com/security/cve/CVE-2021-34552</a>
+          <a href="https://github.com/advisories/GHSA-7534-mm45-c74v">https://github.com/advisories/GHSA-7534-mm45-c74v</a>
+          <a href="https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2021-331.yaml">https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2021-331.yaml</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/31c473898c29d1b7cb6555ce67d9503a4906b83f">https://github.com/python-pillow/Pillow/commit/31c473898c29d1b7cb6555ce67d9503a4906b83f</a>
+          <a href="https://github.com/python-pillow/Pillow/pull/5567">https://github.com/python-pillow/Pillow/pull/5567</a>
+          <a href="https://lists.debian.org/debian-lts-announce/2021/07/msg00018.html">https://lists.debian.org/debian-lts-announce/2021/07/msg00018.html</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/7V6LCG525ARIX6LX5QRYNAWVDD2MD2SV/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/7V6LCG525ARIX6LX5QRYNAWVDD2MD2SV/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VUGBBT63VL7G4JNOEIPDJIOC34ZFBKNJ/">https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VUGBBT63VL7G4JNOEIPDJIOC34ZFBKNJ/</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7V6LCG525ARIX6LX5QRYNAWVDD2MD2SV">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/7V6LCG525ARIX6LX5QRYNAWVDD2MD2SV</a>
+          <a href="https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/VUGBBT63VL7G4JNOEIPDJIOC34ZFBKNJ">https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/VUGBBT63VL7G4JNOEIPDJIOC34ZFBKNJ</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-34552">https://nvd.nist.gov/vuln/detail/CVE-2021-34552</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/8.3.0.html#buffer-overflow">https://pillow.readthedocs.io/en/stable/releasenotes/8.3.0.html#buffer-overflow</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/index.html">https://pillow.readthedocs.io/en/stable/releasenotes/index.html</a>
+          <a href="https://security.gentoo.org/glsa/202211-10">https://security.gentoo.org/glsa/202211-10</a>
+          <a href="https://ubuntu.com/security/notices/USN-5227-1">https://ubuntu.com/security/notices/USN-5227-1</a>
+          <a href="https://ubuntu.com/security/notices/USN-5227-2">https://ubuntu.com/security/notices/USN-5227-2</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2021-34552">https://www.cve.org/CVERecord?id=CVE-2021-34552</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2022-22817</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>9.0.1</td>
+        <td class="links" data-more-links="off">
+          <a href="https://access.redhat.com/security/cve/CVE-2022-22817">https://access.redhat.com/security/cve/CVE-2022-22817</a>
+          <a href="https://bugzilla.redhat.com/show_bug.cgi?id=2042522">https://bugzilla.redhat.com/show_bug.cgi?id=2042522</a>
+          <a href="https://bugzilla.redhat.com/show_bug.cgi?id=2042527">https://bugzilla.redhat.com/show_bug.cgi?id=2042527</a>
+          <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22815">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22815</a>
+          <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22816">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22816</a>
+          <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22817">https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-22817</a>
+          <a href="https://errata.almalinux.org/8/ALSA-2022-0643.html">https://errata.almalinux.org/8/ALSA-2022-0643.html</a>
+          <a href="https://errata.rockylinux.org/RLSA-2022:0643">https://errata.rockylinux.org/RLSA-2022:0643</a>
+          <a href="https://github.com/advisories/GHSA-8vj2-vxx3-667w">https://github.com/advisories/GHSA-8vj2-vxx3-667w</a>
+          <a href="https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2022-10.yaml">https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2022-10.yaml</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/8531b01d6cdf0b70f256f93092caa2a5d91afc11">https://github.com/python-pillow/Pillow/commit/8531b01d6cdf0b70f256f93092caa2a5d91afc11</a>
+          <a href="https://linux.oracle.com/cve/CVE-2022-22817.html">https://linux.oracle.com/cve/CVE-2022-22817.html</a>
+          <a href="https://linux.oracle.com/errata/ELSA-2022-0643.html">https://linux.oracle.com/errata/ELSA-2022-0643.html</a>
+          <a href="https://lists.debian.org/debian-lts-announce/2022/01/msg00018.html">https://lists.debian.org/debian-lts-announce/2022/01/msg00018.html</a>
+          <a href="https://lists.debian.org/debian-lts-announce/2024/03/msg00021.html">https://lists.debian.org/debian-lts-announce/2024/03/msg00021.html</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-22817">https://nvd.nist.gov/vuln/detail/CVE-2022-22817</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/9.0.0.html#fixed-imagepath-path-array-handling">https://pillow.readthedocs.io/en/stable/releasenotes/9.0.0.html#fixed-imagepath-path-array-handling</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/9.0.0.html#restrict-builtins-available-to-imagemath-eval">https://pillow.readthedocs.io/en/stable/releasenotes/9.0.0.html#restrict-builtins-available-to-imagemath-eval</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/9.0.1.html#security">https://pillow.readthedocs.io/en/stable/releasenotes/9.0.1.html#security</a>
+          <a href="https://security.gentoo.org/glsa/202211-10">https://security.gentoo.org/glsa/202211-10</a>
+          <a href="https://ubuntu.com/security/notices/USN-5227-1">https://ubuntu.com/security/notices/USN-5227-1</a>
+          <a href="https://ubuntu.com/security/notices/USN-5227-2">https://ubuntu.com/security/notices/USN-5227-2</a>
+          <a href="https://ubuntu.com/security/notices/USN-5227-3">https://ubuntu.com/security/notices/USN-5227-3</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2022-22817">https://www.cve.org/CVERecord?id=CVE-2022-22817</a>
+          <a href="https://www.debian.org/security/2022/dsa-5053">https://www.debian.org/security/2022/dsa-5053</a>
+        </td>
+      </tr>
+      <tr class="severity-CRITICAL">
+        <td class="pkg-name">Pillow</td>
+        <td>CVE-2023-50447</td>
+        <td class="severity">CRITICAL</td>
+        <td class="pkg-version">6.0.0</td>
+        <td>10.2.0</td>
+        <td class="links" data-more-links="off">
+          <a href="http://www.openwall.com/lists/oss-security/2024/01/20/1">http://www.openwall.com/lists/oss-security/2024/01/20/1</a>
+          <a href="https://access.redhat.com/errata/RHSA-2024:0893">https://access.redhat.com/errata/RHSA-2024:0893</a>
+          <a href="https://access.redhat.com/security/cve/CVE-2023-50447">https://access.redhat.com/security/cve/CVE-2023-50447</a>
+          <a href="https://bugzilla.redhat.com/2259479">https://bugzilla.redhat.com/2259479</a>
+          <a href="https://devhub.checkmarx.com/cve-details/CVE-2023-50447">https://devhub.checkmarx.com/cve-details/CVE-2023-50447</a>
+          <a href="https://devhub.checkmarx.com/cve-details/CVE-2023-50447/">https://devhub.checkmarx.com/cve-details/CVE-2023-50447/</a>
+          <a href="https://duartecsantos.github.io/2023-01-02-CVE-2023-50447">https://duartecsantos.github.io/2023-01-02-CVE-2023-50447</a>
+          <a href="https://duartecsantos.github.io/2023-01-02-CVE-2023-50447/">https://duartecsantos.github.io/2023-01-02-CVE-2023-50447/</a>
+          <a href="https://duartecsantos.github.io/2024-01-02-CVE-2023-50447">https://duartecsantos.github.io/2024-01-02-CVE-2023-50447</a>
+          <a href="https://duartecsantos.github.io/2024-01-02-CVE-2023-50447/">https://duartecsantos.github.io/2024-01-02-CVE-2023-50447/</a>
+          <a href="https://errata.almalinux.org/8/ALSA-2024-0893.html">https://errata.almalinux.org/8/ALSA-2024-0893.html</a>
+          <a href="https://github.com/python-pillow/Pillow">https://github.com/python-pillow/Pillow</a>
+          <a href="https://github.com/python-pillow/Pillow/commit/45c726fd4daa63236a8f3653530f297dc87b160a">https://github.com/python-pillow/Pillow/commit/45c726fd4daa63236a8f3653530f297dc87b160a</a>
+          <a href="https://github.com/python-pillow/Pillow/releases">https://github.com/python-pillow/Pillow/releases</a>
+          <a href="https://linux.oracle.com/cve/CVE-2023-50447.html">https://linux.oracle.com/cve/CVE-2023-50447.html</a>
+          <a href="https://linux.oracle.com/errata/ELSA-2024-0893.html">https://linux.oracle.com/errata/ELSA-2024-0893.html</a>
+          <a href="https://lists.debian.org/debian-lts-announce/2024/01/msg00019.html">https://lists.debian.org/debian-lts-announce/2024/01/msg00019.html</a>
+          <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50447">https://nvd.nist.gov/vuln/detail/CVE-2023-50447</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/10.2.0.html#imagemath-eval-restricted-environment-keys">https://pillow.readthedocs.io/en/stable/releasenotes/10.2.0.html#imagemath-eval-restricted-environment-keys</a>
+          <a href="https://pillow.readthedocs.io/en/stable/releasenotes/10.2.0.html#security">https://pillow.readthedocs.io/en/stable/releasenotes/10.2.0.html#security</a>
+          <a href="https://ubuntu.com/security/notices/USN-6618-1">https://ubuntu.com/security/notices/USN-6618-1</a>
+          <a href="https://www.cve.org/CVERecord?id=CVE-2023-50447">https://www.cve.org/CVERecord?id=CVE-2023-50447</a>
+        </td>
+      </tr>
+      <tr><th colspan="6">No Misconfigurations found</th></tr>
+    </table>
+  </body>
+</html>
